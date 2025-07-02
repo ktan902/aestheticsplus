@@ -196,11 +196,11 @@ We aim to provide a no-frills medical service, that provides safe and effective 
   fetch(`/content/${page}.md`)
     .then(res => res.text())
     .then(md => {
-      const html = marked.parse(md);
+      const html = marked.parse(md); // parses both markdown and raw HTML
       document.getElementById("markdown-content").innerHTML = html;
     })
     .catch(err => {
-      document.getElementById("markdown-content").innerHTML = "<p>Page not found.</p>";
+      document.getElementById("markdown-content").innerHTML = "<p>Content not found.</p>";
     });
 </script>
 	
