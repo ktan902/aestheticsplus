@@ -189,31 +189,18 @@ We aim to provide a no-frills medical service, that provides safe and effective 
 	
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-	 <script>
-  marked.setOptions({
-    gfm: true,
-    breaks: true,
-    sanitize: false // DEPRECATED – use `html: true` below instead
-  });
-
+	<script>
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page") || "home";
 
   fetch(`/content/${page}.md`)
-    .then(res => {
-      if (!res.ok) throw new Error("File not found");
-      return res.text();
+    .then(res => res.text())
+    .then(md => {
+      const html = marked.parse(md);
+      document.getElementById("markdown-content").innerHTML = html;
     })
-    .then(markdown => {
-      document.getElementById("markdown-content").innerHTML = marked.parse(markdown, { 
-        gfm: true,
-        breaks: true,
-        headerIds: false,
-        mangle: false, // required to avoid mangling email addresses
-      });
-    })
-    .catch(error => {
-      document.getElementById("markdown-content").innerHTML = "<p>Content not found.</p>";
+    .catch(err => {
+      document.getElementById("markdown-content").innerHTML = "<p>Page not found.</p>";
     });
 </script>
 	
