@@ -187,18 +187,24 @@ We aim to provide a no-frills medical service, that provides safe and effective 
     </script> 
 <script src="assets/devinabox.js"></script>
 	
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.0.4/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-	<script>
-    const page = new URLSearchParams(location.search).get("page");
-    if (page) {
+	  <script>
+      const params = new URLSearchParams(window.location.search);
+      const page = params.get("page") || "home";
+
       fetch(`/content/${page}.md`)
-        .then((res) => res.text())
-        .then((md) => {
-          document.getElementById("markdown-content").innerHTML = marked.parse(md);
+        .then(res => {
+          if (!res.ok) throw new Error("File not found");
+          return res.text();
+        })
+        .then(markdown => {
+          document.getElementById("markdown-content").innerHTML = marked.parse(markdown);
+        })
+        .catch(error => {
+          document.getElementById("markdown-content").innerHTML = "<p>Content not found.</p>";
         });
-    }
-  </script>
+    </script>
 	
 </body>
 </html>
