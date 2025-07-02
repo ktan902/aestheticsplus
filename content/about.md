@@ -1,5 +1,3 @@
 # About Us
 
-Blue Bridge helps brands grow through digital transformation.
-
-We specialise in creative, content and campaign execution — powered by data and strategy.
+Aesthetics Plus is a medical clinic focusing on non-invasive as well as minimally invasive aesthetic treatments.
