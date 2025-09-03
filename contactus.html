@@ -150,13 +150,72 @@ We aim to provide a no-frills medical service, that provides safe and effective 
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-sm-7">
-                        <div class="cwell">
+                       <div class="cwell">
                             <div id="msgbox">&nbsp;</div>
                             <!-- Contact form -->
                             <h5>Contact Form</h5>
                            
                             
-                              {bb_webform source="Contact Us - Aesthetics Plus"}
+                              <!-- Begin WebForm (Contact Us - Aesthetics Plus) -->
+ <script src="https://bb-cms-ap.s3.amazonaws.com/AppData/Common/js/WebFormValidation.js">
+</script>
+<form enctype="multipart/form-data" name="sws_form_1580" onsubmit="return validateWebform_sws_form_1580(this)" action="/SubmitForm/766dc53e-a42b-4265-abc2-4051c3683f9f" method="post" id="Form_1580">
+                                <div class="form-group">
+                                    <label for="First_Name">Name</label>
+                                    <input type="text" class="form-control required" id="First_Name" name="First_Name" placeholder="Enter Name"> <div data-lastpass-icon-root="" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
+    
+      <div class="form-group">
+                                    <label for="Last_Name">Surname</label>
+                                    <input type="text" class="form-control required" id="Last_Name" name="Last_Name" placeholder="Enter Surname"> </div>
+                                <div class="form-group">
+                                    <label for="Email_Address">Email address</label>
+                                    <input type="email" class="form-control required" id="Email_Address" name="Email_Address" placeholder="Enter email"> </div>
+                                <div class="form-group">
+                                    <label for="Cell_Phone">Contact Number</label>
+                                    <input type="text" class="form-control" name="Cell_Phone" id="Cell_Phone" placeholder="Enter phone number"> </div>
+                                <div class="form-group">
+                                    <label for="sws_282_25219288">Message</label>
+                                    <textarea name="Message" id="sws_282_25219288" rows="4" class="form-control" placeholder="Enter message"></textarea>
+                                </div>
+    
+         <div class="form-group">
+                                  <input type="hidden" id="recaptcha-token" name="RecaptchaToken">
+
+                                </div>
+                                
+     <input class="btn btn-info" type="submit" value="Submit"> 
+   
+                            </form>
+    
+    
+<script>
+  var submissionAttempts_sws_form_1580 = 0;
+  function validateWebform_sws_form_1580(sws__Form){
+    var errorList = '';
+    if (sws__Form.Cell_Phone) errorList += sws__validateRequiredField(sws__Form.Cell_Phone.value, 'Cell Phone');
+    if (sws__Form.First_Name) errorList += sws__validateRequiredField(sws__Form.First_Name.value, 'First Name');
+    if (sws__Form.Last_Name) errorList += sws__validateRequiredField(sws__Form.Last_Name.value, 'Last Name');
+    if (sws__Form.Email_Address) errorList += sws__validateEmail(sws__Form.Email_Address.value, 'Email Address');
+    if (sws__Form['g-recaptcha-response']) errorList += sws__validateCaptchaV2(sws__Form, 'Prove you are not a robot.\n');
+    if(errorList != ''){
+      var errorMessage = 'The following fields need to be complete before submitting this form: \n';
+      errorMessage += errorList;
+      alert(errorMessage);
+      return false;
+    }
+    if(submissionAttempts_sws_form_1580 == 0){
+      submissionAttempts_sws_form_1580++;
+      theForm.submit();
+      return false;
+    }
+    else{
+      alert('The form is already being submitted. You will be redirected when its complete.');
+      return false;
+    }
+  }
+</script>
+<!-- End WebForm (Contact Us - Aesthetics Plus) -->
+
                             
                         </div>
                     </div>
