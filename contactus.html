@@ -157,10 +157,9 @@ We aim to provide a no-frills medical service, that provides safe and effective 
                            
                             
                               <!-- Begin WebForm (Contact Us - Aesthetics Plus) -->
- <script src="https://bb-cms-ap.s3.amazonaws.com/AppData/Common/js/WebFormValidation.js">
-</script>
+ 
 <form enctype="multipart/form-data" name="contact" method="post" data-netlify="true" netlify-recaptcha id="contact-form">
-                                <div class="form-group">
+                                <div class="form-group"> <input type="hidden" name="form-name" value="contact" />
                                     <label for="First_Name">Name</label>
                                     <input type="text" class="form-control required" id="First_Name" name="First_Name" placeholder="Enter Name" required></div>
     
