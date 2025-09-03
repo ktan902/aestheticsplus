@@ -166,54 +166,60 @@ We aim to provide a no-frills medical service, that provides safe and effective 
     
       <div class="form-group">
                                     <label for="Last_Name">Surname</label>
-                                    <input type="text" class="form-control required" id="Last_Name" name="Last_Name" placeholder="Enter Surname"> </div>
+                                    <input type="text" class="form-control required" id="Last_Name" name="Last_Name" placeholder="Enter Surname" required> </div>
                                 <div class="form-group">
                                     <label for="Email_Address">Email address</label>
-                                    <input type="email" class="form-control required" id="Email_Address" name="Email_Address" placeholder="Enter email"> </div>
+                                    <input type="email" class="form-control required" id="Email_Address" name="Email_Address" placeholder="Enter email" required> </div>
                                 <div class="form-group">
                                     <label for="Cell_Phone">Contact Number</label>
-                                    <input type="text" class="form-control" name="Cell_Phone" id="Cell_Phone" placeholder="Enter phone number"> </div>
+                                    <input type="text" class="form-control" name="Cell_Phone" id="Cell_Phone" placeholder="Enter phone number" required> </div>
                                 <div class="form-group">
                                     <label for="sws_282_25219288">Message</label>
-                                    <textarea name="Message" id="sws_282_25219288" rows="4" class="form-control" placeholder="Enter message"></textarea>
+                                    <textarea name="Message" id="Message" rows="4" class="form-control" placeholder="Enter message" required></textarea>
                                 </div>
     
          <div class="form-group">
-                                  <input type="hidden" id="recaptcha-token" name="RecaptchaToken">
+                                  <!-- Netlify reCAPTCHA widget -->
+    <div data-netlify-recaptcha="true"></div>
 
                                 </div>
                                 
      <input class="btn btn-info" type="submit" value="Submit"> 
-   
+    <div id="form-status" style="margin-top:1em;"></div>
                             </form>
     
     
-<script>
-  var submissionAttempts_sws_form_1580 = 0;
-  function validateWebform_sws_form_1580(sws__Form){
-    var errorList = '';
-    if (sws__Form.Cell_Phone) errorList += sws__validateRequiredField(sws__Form.Cell_Phone.value, 'Cell Phone');
-    if (sws__Form.First_Name) errorList += sws__validateRequiredField(sws__Form.First_Name.value, 'First Name');
-    if (sws__Form.Last_Name) errorList += sws__validateRequiredField(sws__Form.Last_Name.value, 'Last Name');
-    if (sws__Form.Email_Address) errorList += sws__validateEmail(sws__Form.Email_Address.value, 'Email Address');
-    if (sws__Form['g-recaptcha-response']) errorList += sws__validateCaptchaV2(sws__Form, 'Prove you are not a robot.\n');
-    if(errorList != ''){
-      var errorMessage = 'The following fields need to be complete before submitting this form: \n';
-      errorMessage += errorList;
-      alert(errorMessage);
-      return false;
+ <!-- AJAX Form Submission Script -->
+  <script>
+  document.getElementById("contact-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const status = document.getElementById("form-status");
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data).toString()
+      });
+
+      const text = await response.text();
+
+      if (text.includes("Captcha verification failed")) {
+        status.innerHTML = "<p style='color:red;'>Please complete the CAPTCHA before submitting.</p>";
+      } else if (response.ok) {
+        status.innerHTML = "<p style='color:green;'>Thanks for your message! We'll get back to you soon.</p>";
+        form.reset();
+      } else {
+        status.innerHTML = "<p style='color:red;'>Submission failed. Please try again later.</p>";
+      }
+    } catch (error) {
+      status.innerHTML = "<p style='color:red;'>Network error. Please try again later.</p>";
     }
-    if(submissionAttempts_sws_form_1580 == 0){
-      submissionAttempts_sws_form_1580++;
-      theForm.submit();
-      return false;
-    }
-    else{
-      alert('The form is already being submitted. You will be redirected when its complete.');
-      return false;
-    }
-  }
-</script>
+  });
+</script>	
 <!-- End WebForm (Contact Us - Aesthetics Plus) -->
 
                             
